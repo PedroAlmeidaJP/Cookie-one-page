@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cookie do Irmão — Cookies artesanais por R$12</title>
+  <meta name="description" content="Cookies artesanais fresquinhos por R$12. Peça pelo WhatsApp! Entrega ou retirada em Santa Maria/RS." />
+  <meta name="theme-color" content="#0f0f10" />
+
+  <!-- Canonical (ajuste para a URL real quando publicar) -->
+  <link rel="canonical" href="https://cookiedoirmao.example/" />
+
+  <!-- Open Graph / Twitter (troque og:image por uma URL absoluta quando tiver) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cookie do Irmão — Cookies artesanais por R$12" />
+  <meta property="og:description" content="Escolha seus sabores e finalize pelo WhatsApp. Entrega ou retirada." />
+  <meta property="og:image" content="https://cookiedoirmao.example/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cookie do Irmão — Cookies artesanais por R$12" />
+  <meta name="twitter:description" content="Cookies artesanais fresquinhos por R$12. Finalize pelo WhatsApp!" />
+  <meta name="twitter:image" content="https://cookiedoirmao.example/og-image.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon simples (pode trocar por arquivo .ico/.png) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8D%AA%3C/text%3E%3C/svg%3E">
+
+  <style>
+    :root{
+      --bg:#0f0f10; --card:#17181a; --muted:#a9acb3; --text:#f6f7f9; --brand:#ffd166; --accent:#ef476f; --ok:#06d6a0; --warn:#f78c6b;
+      --shadow:0 10px 25px rgba(0,0,0,.35);
+      --focus:#7fd1ff;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit}
+    :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+    @media (prefers-reduced-motion: reduce){*, *::before, *::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important}}
+
+    .container{max-width:1000px;margin:0 auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:16px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--brand),#ffe08a);box-shadow:var(--shadow)}
+    .brand h1{font-size:1.4rem;margin:0}
+    .badge{background:rgba(255,209,102,.15);color:var(--brand);padding:6px 10px;border-radius:999px;font-size:.85rem;font-weight:600}
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;box-shadow:var(--shadow)}
+    .hero{padding:22px}
+    .hero h2{margin:0 0 6px;font-size:1.5rem}
+    .hero p{margin:6px 0;color:var(--muted)}
+    .price-pill{display:inline-flex;align-items:center;gap:6px;background:#1f2023;border:1px solid rgba(255,255,255,.06);padding:6px 10px;border-radius:999px;font-weight:700}
+
+    .products{grid-column:span 7}
+    .checkout{grid-column:span 5;position:sticky;top:16px;align-self:start}
+    @media (max-width:900px){.products,.checkout{grid-column:span 12}}
+
+    .product{display:flex;gap:12px;align-items:center;padding:12px}
+    .thumb{width:64px;height:64px;border-radius:14px;background:#222;display:grid;place-items:center;font-weight:800}
+    .product h3{margin:0 0 6px;font-size:1rem}
+    .product p{margin:0;color:var(--muted);font-size:.9rem}
+    .qty{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .qty button{width:32px;height:32px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#202125;color:var(--text);cursor:pointer}
+    .qty input{width:56px;text-align:center;background:#141518;border:1px solid rgba(255,255,255,.08);color:var(--text);padding:8px;border-radius:10px}
+
+    .checkout{padding:16px}
+    .line{display:flex;justify-content:space-between;margin:8px 0;color:var(--muted)}
+    .total{font-size:1.2rem;font-weight:800;color:var(--text)}
+    .section{margin-top:14px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+    label{display:block;margin:8px 0 6px;color:var(--muted)}
+    input,select,textarea{width:100%;padding:12px;border-radius:12px;background:#141518;border:1px solid rgba(255,255,255,.08);color:var(--text)}
+    input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{appearance:none;margin:0}
+    textarea{min-height:72px}
+    .whats{width:100%;padding:14px 16px;border-radius:14px;border:none;cursor:pointer;font-weight:800;margin-top:12px;background:var(--ok);color:#052d22}
+    .muted{font-size:.85rem;color:var(--muted)}
+    footer{padding:24px 0;color:var(--muted);text-align:center}
+    .chip{display:inline-block;background:#1f2023;border:1px solid rgba(255,255,255,.06);padding:6px 10px;border-radius:999px;margin-right:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Cookie do Irmão</h1>
+          <div class="muted">Feitos na hora • Santa Maria/RS</div>
+        </div>
+      </div>
+      <div class="badge" aria-label="Preço unitário">R$ 12,00 cada</div>
+    </header>
+
+    <div class="grid">
+      <section class="card hero products" aria-labelledby="titulo-sabores">
+        <h2 id="titulo-sabores">Escolha seus sabores</h2>
+        <p>5 sabores fixos — combine como quiser. Pedido mínimo: 1 unidade.</p>
+        <div id="product-list"></div>
+        <div style="padding:12px 12px 0">
+          <span class="chip">Sem conservantes</span>
+          <span class="chip">Receita artesanal</span>
+          <span class="chip">Entrega e retirada</span>
+        </div>
+      </section>
+
+      <aside class="card checkout" id="checkout" aria-labelledby="titulo-checkout">
+        <h3 id="titulo-checkout" style="margin:4px 0 8px">Seu pedido</h3>
+        <div class="line"><span>Subtotal</span><strong id="subtotal" aria-live="polite">R$ 0,00</strong></div>
+        <div class="line"><span>Taxa de entrega</span><span id="frete">A combinar</span></div>
+        <div class="line total"><span>Total</span><span id="total" aria-live="polite">R$ 0,00</span></div>
+
+        <div class="section">
+          <label for="modo">Como quer receber?</label>
+          <select id="modo" autocomplete="shipping">
+            <option value="retirada">Retirar no local</option>
+            <option value="entrega">Entrega</option>
+          </select>
+          <div id="endereco-wrap" style="display:none">
+            <label for="endereco">Endereço para entrega</label>
+            <input id="endereco" placeholder="Rua, número, bairro" autocomplete="address-line1" />
+          </div>
+        </div>
+
+        <div class="section">
+          <label for="nome">Seu nome</label>
+          <input id="nome" placeholder="Ex.: João" autocomplete="name" />
+          <label for="obs">Observações (opcional)</label>
+          <textarea id="obs" placeholder="Ponto de referência, sem lactose, sem nozes, etc."></textarea>
+        </div>
+
+        <button class="whats" id="btn-whats" aria-label="Finalizar pedido no WhatsApp">Finalizar no WhatsApp</button>
+        <div class="muted" style="margin-top:8px">Pagamento na entrega (PIX, dinheiro ou cartão) — confirme disponibilidade pelo WhatsApp.</div>
+      </aside>
+    </div>
+
+    <footer>
+      © <span id="year"></span> Cookie do Irmão — Instagram: @cookiedoirmao
+    </footer>
+  </div>
+
+  <!-- Config extraível (facilita manutenção sem tocar no JS) -->
+  <script type="application/json" id="site-config">
+  {
+    "loja": {
+      "nome": "Cookie do Irmão",
+      "cidade": "Santa Maria/RS",
+      "precoUnitario": 12.00,
+      "fretePadrao": 5.00
+    },
+    "whatsappNumero": "5599999999999",
+    "instagram": "https://instagram.com/cookiedoirmao",
+    "sabores": [
+      { "id": "choc", "nome": "Chocolate Clássico", "desc": "Massa amanteigada com gotas intensas.", "cor": "#3b2f2f" },
+      { "id": "ddl",  "nome": "Doce de Leite",         "desc": "Recheado com doce de leite cremoso.", "cor": "#9c6b43" },
+      { "id": "rv",   "nome": "Red Velvet",              "desc": "Toque de cacau e baunilha.",       "cor": "#a32031" },
+      { "id": "nut",  "nome": "Nutella",                 "desc": "Generoso recheio de creme de avelã.", "cor": "#4e2a1e" },
+      { "id": "brig", "nome": "Brigadeiro",              "desc": "Crocante por fora, macio por dentro.", "cor": "#3a2a1f" }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: LocalBusiness + Produtos (ajuste os dados quando publicar) -->
+  <script type="application/ld+json" id="schema-jsonld"></script>
+
+  <script>
+    // ====== UTIL ======
+    function money(n){ return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) }
+
+    function loadConfig(){
+      try{ return JSON.parse(document.getElementById('site-config').textContent) }catch(e){ return null }
+    }
+
+    const CONFIG = loadConfig()
+    if(!CONFIG){ console.error('Config inválida'); }
+
+    // ====== RENDER PRODUTOS ======
+    const listEl = document.getElementById('product-list');
+
+    function renderProducts(){
+      listEl.innerHTML = ''
+      CONFIG.sabores.forEach(s =>{
+        const row = document.createElement('div')
+        row.className = 'product'
+        row.innerHTML = `
+          <div class="thumb" style="background:linear-gradient(135deg, ${s.cor}, #222)" aria-hidden="true">🍪</div>
+          <div>
+            <h3>${s.nome}</h3>
+            <p>${s.desc}</p>
+          </div>
+          <div class="qty">
+            <button data-id="${s.id}" data-act="-" aria-label="Remover 1 unidade de ${s.nome}">−</button>
+            <input id="qty-${s.id}" type="number" min="0" value="0" aria-label="Quantidade do sabor ${s.nome}" inputmode="numeric" />
+            <button data-id="${s.id}" data-act="+" aria-label="Adicionar 1 unidade de ${s.nome}">+</button>
+          </div>`
+        listEl.appendChild(row)
+      })
+    }
+
+    renderProducts()
+
+    // ====== ESTADO DO CARRINHO ======
+    const state = {}
+    CONFIG.sabores.forEach(s=> state[s.id]=0)
+
+    function safeInt(v){ const n = parseInt(v,10); return Number.isFinite(n) && n>0 ? n : 0 }
+
+    function recalc(){
+      const unidades = Object.values(state).reduce((a,b)=>a+b,0)
+      const subtotal = unidades * CONFIG.loja.precoUnitario
+      document.getElementById('subtotal').textContent = money(subtotal)
+      document.getElementById('total').textContent = money(subtotal) // frete combinado no WhatsApp
+    }
+
+    listEl.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button')
+      if(!btn) return
+      const {id, act} = btn.dataset
+      const input = document.getElementById('qty-'+id)
+      let v = safeInt(input.value)
+      v = act==='+' ? v+1 : Math.max(0, v-1)
+      state[id] = v
+      input.value = v
+      recalc()
+    })
+
+    let changeTimer
+    listEl.addEventListener('input', (e)=>{
+      if(!e.target.matches('input[type="number"]')) return
+      const id = e.target.id.replace('qty-','')
+      state[id] = Math.max(0, safeInt(e.target.value))
+      clearTimeout(changeTimer)
+      changeTimer = setTimeout(recalc, 120)
+    })
+
+    // ====== ENTREGA VS RETIRADA ======
+    const modo = document.getElementById('modo')
+    const endWrap = document.getElementById('endereco-wrap')
+    modo.addEventListener('change',()=>{
+      endWrap.style.display = modo.value==='entrega' ? 'block' : 'none'
+    })
+
+    // ====== WHATSAPP CHECKOUT ======
+    function msgWhats(){
+  const nome = document.getElementById('nome').value.trim() || 'Cliente'
+  const obs = document.getElementById('obs').value.trim()
+  const endereco = document.getElementById('endereco').value.trim()
+
+  const itens = CONFIG.sabores
+    .filter(s => state[s.id] > 0)
+    .map(s => `• ${s.nome} x${state[s.id]}`)
+    .join("\n") || '—'
+
+  const unidades = Object.values(state).reduce((a,b)=>a+b,0)
+  const subtotal = unidades * CONFIG.loja.precoUnitario
+
+  const enderecoLinha = (modo.value === 'entrega' && endereco)
+    ? `Endereço: ${endereco}\n`
+    : ''
+
+  const texto = `*${CONFIG.loja.nome}* — Pedido online
+Nome: ${nome}
+Modo: ${modo.value==='entrega' ? 'Entrega' : 'Retirada'}
+${enderecoLinha}
+Itens:
+${itens}
+
+Subtotal: ${money(subtotal)}
+Observações: ${obs || '-'}
+
+Como posso pagar? (PIX/Dinheiro/Cartão)`
+
+  return encodeURIComponent(texto)
+}
+
+
+    // ====== JSON-LD dinâmico (LocalBusiness + Product) ======
+    function injectSchema(){
+      const products = CONFIG.sabores.map(s=>({
+        "@type":"Product",
+        "name": s.nome,
+        "description": s.desc,
+        "brand": {"@type":"Brand","name": CONFIG.loja.nome},
+        "offers": {"@type":"Offer","priceCurrency":"BRL","price": CONFIG.loja.precoUnitario.toFixed(2),"availability":"https://schema.org/InStock"}
+      }))
+      const schema = {
+        "@context":"https://schema.org",
+        "@type":"LocalBusiness",
+        "name": CONFIG.loja.nome,
+        "address": {"@type":"PostalAddress","addressLocality": CONFIG.loja.cidade},
+        "areaServed": "Santa Maria, RS",
+        "sameAs": CONFIG.instagram ? [CONFIG.instagram] : [],
+        "makesOffer": products
+      }
+      document.getElementById('schema-jsonld').textContent = JSON.stringify(schema)
+    }
+
+    // ====== PWA leve (manifest + SW via Blob) ======
+    function setupPWA(){
+      try{
+        const manifest = {
+          name: CONFIG.loja.nome,
+          short_name: CONFIG.loja.nome,
+          start_url: ".",
+          display: "standalone",
+          background_color: "#0f0f10",
+          theme_color: "#0f0f10",
+          icons: []
+        }
+        const blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'})
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('link')
+        link.rel = 'manifest'; link.href = url; document.head.appendChild(link)
+
+        const swBlob = new Blob([
+`self.addEventListener('install', e=>{e.waitUntil(caches.open('cookie-v1').then(c=>c.addAll(['./'])))});
+self.addEventListener('fetch', e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`
+        ], {type:'text/javascript'})
+        const swUrl = URL.createObjectURL(swBlob)
+        if('serviceWorker' in navigator){ navigator.serviceWorker.register(swUrl) }
+      }catch(e){ console.warn('PWA desabilitado:', e) }
+    }
+
+    // ====== Boot ======
+    document.getElementById('year').textContent = new Date().getFullYear()
+    injectSchema()
+    setupPWA()
+    recalc()
+  </script>
+</body>
+</html>
