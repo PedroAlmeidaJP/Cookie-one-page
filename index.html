@@ -107,7 +107,7 @@
       <aside class="card checkout" id="checkout" aria-labelledby="titulo-checkout">
         <h3 id="titulo-checkout" style="margin:4px 0 8px">Seu pedido</h3>
         <div class="line"><span>Subtotal</span><strong id="subtotal" aria-live="polite">R$ 0,00</strong></div>
-        <div class="line"><span>Taxa de entrega</span><span id="frete">A combinar</span></div>
+        <div class="line"><span>Taxa de entrega</span><span id="frete" aria-live="polite">A combinar</span></div>
         <div class="line total"><span>Total</span><span id="total" aria-live="polite">R$ 0,00</span></div>
 
         <div class="section">
@@ -116,15 +116,83 @@
             <option value="retirada">Retirar no local</option>
             <option value="entrega">Entrega</option>
           </select>
-          <div id="endereco-wrap" style="display:none">
-            <label for="endereco">Endereço para entrega</label>
-            <input id="endereco" placeholder="Rua, número, bairro" autocomplete="address-line1" />
+
+          <!-- Endereço de retirada fixo -->
+          <div id="retirada-info" class="muted" style="margin-top:8px;display:block">
+            Retirada em: <strong>Rua André da Rocha, 180 — Santa Maria/RS</strong><br>
+            <a id="link-mapa-retirada" href="#" target="_blank" rel="noopener">Ver no mapa</a>
+          </div>
+
+          <!-- Form de entrega completo -->
+          <div id="endereco-wrap" style="display:none; margin-top:10px">
+            <div class="grid" style="grid-template-columns:repeat(12,1fr);gap:8px">
+              <div style="grid-column:span 12">
+                <label for="genero">Gênero</label>
+                <select id="genero">
+                  <option value="">Prefiro não dizer</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+              <div style="grid-column:span 6">
+                <label for="nome">Nome</label>
+                <input id="nome" placeholder="Ex.: João" autocomplete="given-name" />
+              </div>
+              <div style="grid-column:span 6">
+                <label for="sobrenome">Sobrenome</label>
+                <input id="sobrenome" placeholder="Ex.: Silva" autocomplete="family-name" />
+              </div>
+              <div style="grid-column:span 5">
+                <label for="cep">CEP</label>
+                <input id="cep" placeholder="Ex.: 97010-001" inputmode="numeric" autocomplete="postal-code" />
+              </div>
+              <div style="grid-column:span 7;align-self:end">
+                <button type="button" class="whats" id="btn-buscar-cep" style="padding:10px 12px; background:#1f7aec; color:white">Buscar CEP</button>
+              </div>
+              <div style="grid-column:span 8">
+                <label for="rua">Rua</label>
+                <input id="rua" placeholder="Rua" autocomplete="address-line1" />
+              </div>
+              <div style="grid-column:span 4">
+                <label for="numero">Número</label>
+                <input id="numero" placeholder="Nº" inputmode="numeric" />
+              </div>
+              <div style="grid-column:span 12">
+                <label for="complemento">Complemento</label>
+                <input id="complemento" placeholder="Bloco, apto, ponto de referência" autocomplete="address-line2" />
+              </div>
+              <div style="grid-column:span 6">
+                <label for="bairro">Bairro</label>
+                <input id="bairro" placeholder="Bairro" />
+              </div>
+              <div style="grid-column:span 4">
+                <label for="cidade">Cidade</label>
+                <input id="cidade" placeholder="Cidade" />
+              </div>
+              <div style="grid-column:span 2">
+                <label for="uf">UF</label>
+                <input id="uf" placeholder="UF" maxlength="2" />
+              </div>
+              <div style="grid-column:span 12" class="muted">
+                <a id="link-mapa-cliente" href="#" target="_blank" rel="noopener">Ver endereço do cliente no mapa</a>
+              </div>
+            </div>
+
+            <!-- Seleção/ajuste da taxa de entrega -->
+            <div class="section">
+              <label for="zona">Zona/Distância</label>
+              <select id="zona">
+                <option value="auto">Automático (por bairro/CEP)</option>
+                <option value="perto">Próximo (R$ 10,00)</option>
+                <option value="longe">Longe (R$ 15,00)</option>
+              </select>
+              <div class="muted">Base: R$ 10,00 • Longe: R$ 15,00</div>
+            </div>
           </div>
         </div>
 
         <div class="section">
-          <label for="nome">Seu nome</label>
-          <input id="nome" placeholder="Ex.: João" autocomplete="name" />
           <label for="obs">Observações (opcional)</label>
           <textarea id="obs" placeholder="Ponto de referência, sem lactose, sem nozes, etc."></textarea>
         </div>
@@ -146,7 +214,10 @@
       "nome": "Cookie do Irmão",
       "cidade": "Santa Maria/RS",
       "precoUnitario": 12.00,
-      "fretePadrao": 5.00
+      "freteBase": 10.00,
+      "freteLonge": 15.00,
+      "retiradaEndereco": "Rua André da Rocha, 180, Santa Maria - RS",
+      "retiradaMaps": "https://www.google.com/maps/search/?api=1&query=Rua+Andr%C3%A9+da+Rocha%2C+180%2C+Santa+Maria+-+RS"
     },
     "whatsappNumero": "5599999999999",
     "instagram": "https://instagram.com/cookiedoirmao",
@@ -209,7 +280,11 @@
       const unidades = Object.values(state).reduce((a,b)=>a+b,0)
       const subtotal = unidades * CONFIG.loja.precoUnitario
       document.getElementById('subtotal').textContent = money(subtotal)
-      document.getElementById('total').textContent = money(subtotal) // frete combinado no WhatsApp
+      const modoEntrega = document.getElementById('modo').value === 'entrega'
+      const freteNum = calcularFrete()
+      document.getElementById('frete').textContent = modoEntrega ? money(freteNum) : 'A combinar'
+      const total = subtotal + (modoEntrega ? freteNum : 0)
+      document.getElementById('total').textContent = money(total)
     }
 
     listEl.addEventListener('click', (e)=>{
@@ -236,8 +311,17 @@
     // ====== ENTREGA VS RETIRADA ======
     const modo = document.getElementById('modo')
     const endWrap = document.getElementById('endereco-wrap')
+    const retiradaInfo = document.getElementById('retirada-info')
+    const linkMapaRetirada = document.getElementById('link-mapa-retirada')
+
+    // inicializa link do mapa de retirada
+    if(CONFIG?.loja?.retiradaMaps){ linkMapaRetirada.href = CONFIG.loja.retiradaMaps }
+
     modo.addEventListener('change',()=>{
-      endWrap.style.display = modo.value==='entrega' ? 'block' : 'none'
+      const entrega = modo.value==='entrega'
+      endWrap.style.display = entrega ? 'block' : 'none'
+      retiradaInfo.style.display = entrega ? 'none' : 'block'
+      recalc()
     })
 
     // ====== WHATSAPP CHECKOUT ======
@@ -249,7 +333,7 @@
   const itens = CONFIG.sabores
     .filter(s => state[s.id] > 0)
     .map(s => `• ${s.nome} x${state[s.id]}`)
-    .join("\n") || '—'
+    .join("\n") || '—'   // <- usar "\n", NUNCA quebra de linha dentro de aspas
 
   const unidades = Object.values(state).reduce((a,b)=>a+b,0)
   const subtotal = unidades * CONFIG.loja.precoUnitario
